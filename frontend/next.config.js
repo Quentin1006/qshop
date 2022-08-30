@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-}
+  reactStrictMode: false, // Recommended for the `pages` directory, default in `app`.
+  images: {
+    remotePatterns: [{ hostname: 'localhost' }],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

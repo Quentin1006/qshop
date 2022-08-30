@@ -1,0 +1,270 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = "postgresql://postgres:postgres@localhost:5432/qshop"
+}
+
+model User {
+  id               String    @id @default(uuid())
+  firstname        String
+  lastname         String?
+  email            String    @unique
+  roleId           Int
+  role             Role      @relation(fields: [roleId], references: [id])
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  orders           Order[]
+  comments         Comment[]
+  productsSearched Product[] @relation("productsSearchedByUser")
+  productsBought   Product[] @relation("productsBoughtByUser")
+}
+
+enum RoleName {
+  USER
+  ADMIN
+}
+
+model Role {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  permissions Permission[]
+  User        User[]
+}
+
+model Permission {
+  id     Int    @id @default(autoincrement())
+  name   String @unique
+  roles  Role[]
+  roleId Int?
+}
+
+model Rate {
+  id        Int     @id @default(autoincrement())
+  votes     Int
+  value     Decimal
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int     @unique
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  content   String
+  product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
+  rate      Decimal
+
+  @@unique([authorId, productId])
+}
+
+enum BasketItemState {
+  ACTIVE
+  ASIDE
+  REMOVED
+}
+
+model BasketItem {
+  id        Int             @id @default(autoincrement())
+  product   Product         @relation(fields: [productId], references: [id])
+  productId Int
+  quantity  Int
+  dateAdded DateTime        @default(now())
+  state     BasketItemState
+  Basket    Basket?         @relation(fields: [basketId], references: [id])
+  basketId  Int?
+}
+
+model Basket {
+  id        Int          @id @default(autoincrement())
+  refId     String       @unique
+  anonymous Boolean      @default(true)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  state     String
+  items     BasketItem[]
+  order     Order?       @relation(fields: [orderId], references: [id])
+  orderId   String?      @unique
+}
+
+model Product {
+  id             Int              @id @default(autoincrement())
+  price          Decimal
+  discount       Int              @default(0)
+  link           String
+  name           String
+  description    String
+  dateAdded      DateTime         @default(now())
+  rate           Rate?
+  comments       Comment[]
+  tags           Tag[] // categories
+  searchedBy     User[]           @relation("productsSearchedByUser")
+  boughtBy       User[]           @relation("productsBoughtByUser")
+  productDetails ProductDetails[]
+  basketItem     BasketItem[]
+}
+
+model ProductDetails {
+  id                   Int          @id @default(autoincrement())
+  brand                String
+  longDescription      String
+  technicalDescription String
+  caracteristics       String
+  returnPolicyId       Int
+  returnPolicy         ReturnPolicy @relation(fields: [returnPolicyId], references: [id])
+  storeId              Int
+  store                Store        @relation(fields: [storeId], references: [id])
+  promotionId          Int?
+  promotion            Promotion?   @relation(fields: [promotionId], references: [id])
+  sku                  Int
+  productId            Int          @unique
+  product              Product      @relation(fields: [productId], references: [id])
+}
+
+enum ReturnPolicyType {
+  FREE_30
+}
+
+model ReturnPolicy {
+  id                Int              @id @default(autoincrement())
+  type              ReturnPolicyType
+  delayPeriodInDays Int
+  fees              Int
+  productDetails    ProductDetails[]
+  details           String?
+}
+
+enum PromotionType {
+  QUANTITY_REDUCTION
+}
+
+model Promotion {
+  id             Int              @id @default(autoincrement())
+  type           PromotionType
+  productDetails ProductDetails[]
+  startDate      DateTime
+  endDate        DateTime
+  message        String
+  minQuantity    Int
+  discount       Int
+}
+
+model Store {
+  id             Int              @id @default(autoincrement())
+  name           String
+  productDetails ProductDetails[]
+}
+
+model Description {
+  id    Int    @id @default(autoincrement())
+  type  String
+  label String
+  value String
+}
+
+model Tag {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
+}
+
+enum PaymentType {
+  CB
+  VISA
+  MASTERCARD
+  CHECK
+}
+
+model Payment {
+  id     String      @id @default(uuid())
+  date   DateTime
+  amount Decimal
+  type   PaymentType
+  state  String
+  orders Order[]
+}
+
+model Transporter {
+  id        Int        @id @default(autoincrement())
+  name      String
+  shippings Shipping[]
+}
+
+enum ShippingMethod {
+  PARCEL_PICKUP
+  HOME_DELIVERY
+  IN_STORE_COLLECTION
+}
+
+model Shipping {
+  id                Int             @id @default(autoincrement())
+  method            ShippingMethod
+  transporterId     Int
+  transporter       Transporter     @relation(fields: [transporterId], references: [id])
+  deliveryAddressId Int
+  deliveryAddress   DeliveryAddress @relation(fields: [deliveryAddressId], references: [id])
+  order             Order           @relation(fields: [orderId], references: [id])
+  orderId           String          @unique
+}
+
+model DeliveryAddress {
+  id       Int        @id @default(autoincrement())
+  number   String // can include bis, ter ...
+  street   String
+  city     String
+  zipcode  String
+  country  String
+  orderId  String     @unique
+  order    Order      @relation(fields: [orderId], references: [id])
+  shipping Shipping[]
+}
+
+enum Order_Step {
+  CONFIRM_BASKET
+  SELECT_PAYMENT
+  SELECT_SHIPMENT
+  CONFIRM
+}
+
+enum Order_State {
+  PENDING
+  DELIVERED
+  IN_CONFLICT
+  RETURNED
+}
+
+model Order {
+  id              String           @id @default(uuid())
+  paymentId       String?
+  payment         Payment?         @relation(fields: [paymentId], references: [id])
+  basketId        Int              @unique
+  Basket          Basket?
+  userId          String
+  user            User             @relation(fields: [userId], references: [id])
+  shipping        Shipping?
+  contactEmail    String?
+  step            Order_Step
+  state           Order_State
+  deliveryAddress DeliveryAddress?
+  ticketSAV       TicketSAV[]
+}
+
+enum TicketState {
+  OPENED
+  IN_CONFLICT
+  RESOLVED
+  EXPIRED
+}
+
+model TicketSAV {
+  id        Int         @id @default(autoincrement())
+  orderId   String
+  order     Order       @relation(fields: [orderId], references: [id])
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  reason    String
+  state     TicketState
+}

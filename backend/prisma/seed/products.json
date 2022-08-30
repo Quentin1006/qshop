@@ -1,0 +1,198 @@
+[
+  {
+    "name": "ComfortFit Memory Foam Pillow",
+    "price": 29.99,
+    "image_link": "https://example.com/memory_foam_pillow.jpg",
+    "description": "Experience a night of unparalleled comfort with our ComfortFit Memory Foam Pillow. This pillow is designed to provide optimal support for your head and neck, ensuring a restful and rejuvenating sleep. Made with high-quality memory foam, it contours to the shape of your head, promoting proper spinal alignment. Say goodbye to restless nights and wake up feeling refreshed every morning.",
+    "tags": ["Memory Foam", "Pillow", "Sleep", "Comfort", "Neck Support"]
+  },
+  {
+    "name": "SmartWatch Pro Series X",
+    "price": 149.99,
+    "image_link": "https://example.com/smartwatch_pro.jpg",
+    "description": "Elevate your lifestyle with the SmartWatch Pro Series X. This sleek and advanced smartwatch offers a range of features to keep you connected and enhance your fitness journey. Track your daily activities, monitor your heart rate, receive notifications, and enjoy the convenience of contactless payments. With a vibrant AMOLED display and durable design, the SmartWatch Pro Series X is the perfect companion for a modern and active lifestyle.",
+    "tags": ["Smartwatch", "Fitness", "Wearable", "Technology", "Health"]
+  },
+  {
+    "name": "Premium Leather Laptop Bag",
+    "price": 89.99,
+    "image_link": "https://example.com/leather_laptop_bag.jpg",
+    "description": "Upgrade your professional look with our Premium Leather Laptop Bag. Crafted from genuine leather, this stylish and functional bag is designed to accommodate laptops up to 15 inches. The spacious interior provides ample room for documents and accessories, while the durable construction ensures long-lasting use. Make a statement at the office with this sophisticated laptop bag.",
+    "tags": ["Laptop Bag", "Leather", "Professional", "Accessories"]
+  },
+  {
+    "name": "Wireless Noise-Canceling Headphones",
+    "price": 199.99,
+    "image_link": "https://example.com/wireless_headphones.jpg",
+    "description": "Immerse yourself in crystal-clear sound with our Wireless Noise-Canceling Headphones. These premium headphones feature advanced noise-canceling technology, providing an uninterrupted listening experience. With wireless connectivity and a long battery life, you can enjoy your favorite music or podcasts on the go. Elevate your audio experience with these high-quality headphones.",
+    "tags": ["Headphones", "Wireless", "Noise-Canceling", "Audio", "Technology"]
+  },
+  {
+    "name": "Organic Bamboo Bed Sheets",
+    "price": 49.99,
+    "image_link": "https://example.com/bamboo_bed_sheets.jpg",
+    "description": "Indulge in the luxurious comfort of our Organic Bamboo Bed Sheets. Made from 100% organic bamboo fibers, these sheets are naturally breathable and hypoallergenic. Experience a blissful night's sleep with the soft and silky feel of bamboo. Upgrade your bedding to a new level of sophistication and relaxation.",
+    "tags": ["Bed Sheets", "Bamboo", "Organic", "Bedding", "Comfort"]
+  },
+  {
+    "name": "UltraHD 4K Smart TV",
+    "price": 799.99,
+    "image_link": "https://example.com/4k_smart_tv.jpg",
+    "description": "Transform your entertainment experience with our UltraHD 4K Smart TV. Featuring stunning visuals and vibrant colors, this smart TV delivers an immersive viewing experience. Connect to your favorite streaming services, browse the internet, and enjoy a wide range of apps directly on your TV. Elevate your home entertainment with the brilliance of 4K resolution.",
+    "tags": ["Smart TV", "4K", "Entertainment", "Technology", "Home Theater"]
+  },
+  {
+    "name": "Fitness Tracker Pro",
+    "price": 79.99,
+    "image_link": "https://example.com/fitness_tracker.jpg",
+    "description": "Achieve your fitness goals with the Fitness Tracker Pro. This advanced fitness tracker monitors your heart rate, tracks your steps, and provides insights into your sleep patterns. With a sleek design and customizable straps, it's the perfect companion for an active lifestyle. Stay motivated and stay on track with the Fitness Tracker Pro.",
+    "tags": ["Fitness Tracker", "Health", "Wearable", "Exercise", "Technology"]
+  },
+  {
+    "name": "Designer Espresso Machine",
+    "price": 399.99,
+    "image_link": "https://example.com/espresso_machine.jpg",
+    "description": "Experience the art of coffee brewing with our Designer Espresso Machine. This stylish and high-performance machine allows you to create barista-quality espresso beverages at home. With customizable settings and a sleek design, it's a must-have for coffee enthusiasts who appreciate the perfect cup. Elevate your coffee experience with our Designer Espresso Machine.",
+    "tags": ["Espresso Machine", "Coffee", "Barista", "Home Appliances"]
+  },
+  {
+    "name": "Vintage Record Player",
+    "price": 129.99,
+    "image_link": "https://example.com/vintage_record_player.jpg",
+    "description": "Rediscover the joy of vinyl with our Vintage Record Player. This classic turntable combines vintage aesthetics with modern technology, allowing you to enjoy your favorite records in style. With built-in speakers and Bluetooth connectivity, it's a versatile addition to any music lover's collection. Immerse yourself in the warm sound of analog music with our Vintage Record Player.",
+    "tags": ["Record Player", "Vintage", "Music", "Audio", "Entertainment"]
+  },
+  {
+    "name": "Portable Outdoor Grill",
+    "price": 149.99,
+    "image_link": "https://example.com/outdoor_grill.jpg",
+    "description": "Grill on the go with our Portable Outdoor Grill. Whether you're camping, tailgating, or picnicking, this compact and lightweight grill is designed for outdoor enthusiasts. With easy assembly and a reliable cooking performance, it's the perfect companion for outdoor cooking adventures. Elevate your outdoor dining experience with our Portable Outdoor Grill.",
+    "tags": ["Outdoor Grill", "Portable", "Camping", "Cooking", "Outdoor"]
+  },
+  {
+    "name": "Professional DSLR Camera",
+    "price": 1299.99,
+    "image_link": "https://example.com/dslr_camera.jpg",
+    "description": "Capture stunning moments with our Professional DSLR Camera. Designed for photographers and videographers, this high-performance camera features advanced imaging technology and versatile shooting modes. Whether you're a seasoned professional or an aspiring enthusiast, our DSLR camera empowers you to unleash your creativity and capture life's beautiful moments.",
+    "tags": ["DSLR Camera", "Photography", "Professional", "Technology"]
+  },
+  {
+    "name": "Luxury Leather Sofa",
+    "price": 999.99,
+    "image_link": "https://example.com/leather_sofa.jpg",
+    "description": "Transform your living space with our Luxury Leather Sofa. Crafted with premium leather and exquisite detailing, this sofa combines comfort and sophistication. Whether you're entertaining guests or relaxing with family, the Luxury Leather Sofa adds a touch of elegance to your home. Experience the pinnacle of luxury with our meticulously crafted sofa.",
+    "tags": ["Leather Sofa", "Furniture", "Luxury", "Home Decor"]
+  },
+  {
+    "name": "Wireless Gaming Mouse",
+    "price": 49.99,
+    "image_link": "https://example.com/gaming_mouse.jpg",
+    "description": "Take your gaming experience to the next level with our Wireless Gaming Mouse. This high-performance mouse is designed for precision and responsiveness, ensuring you stay ahead in the gaming arena. With customizable buttons and a sleek design, it's a must-have accessory for gaming enthusiasts. Dominate the game with our Wireless Gaming Mouse.",
+    "tags": ["Gaming Mouse", "Wireless", "Gaming", "Technology"]
+  },
+  {
+    "name": "Modern Glass Coffee Table",
+    "price": 199.99,
+    "image_link": "https://example.com/glass_coffee_table.jpg",
+    "description": "Enhance your living room with our Modern Glass Coffee Table. Featuring a sleek glass top and minimalist design, this coffee table adds a touch of contemporary elegance to your space. The durable construction ensures longevity, making it a functional and stylish centerpiece for your living room. Elevate your home decor with our Modern Glass Coffee Table.",
+    "tags": ["Coffee Table", "Glass", "Modern", "Furniture", "Home Decor"]
+  },
+  {
+    "name": "Smart Home Security Camera",
+    "price": 79.99,
+    "image_link": "https://example.com/security_camera.jpg",
+    "description": "Protect your home with our Smart Home Security Camera. This intelligent camera provides real-time monitoring and smart alerts, ensuring the safety of your property. With features like motion detection and two-way audio, it's a comprehensive solution for home security. Gain peace of mind and keep an eye on your home with our Smart Home Security Camera.",
+    "tags": ["Security Camera", "Smart Home", "Safety", "Technology"]
+  },
+  {
+    "name": "Bluetooth Fitness Earbuds",
+    "price": 59.99,
+    "image_link": "https://example.com/fitness_earbuds.jpg",
+    "description": "Fuel your workout with our Bluetooth Fitness Earbuds. These wireless earbuds provide crystal-clear sound and a secure fit, making them ideal for active lifestyles. With Bluetooth connectivity and sweat-resistant design, they are perfect for workouts, runs, and outdoor activities. Elevate your fitness routine with the convenience of Bluetooth Fitness Earbuds.",
+    "tags": ["Fitness Earbuds", "Bluetooth", "Fitness", "Technology"]
+  },
+  {
+    "name": "Solar-Powered Outdoor Lantern",
+    "price": 39.99,
+    "image_link": "https://example.com/outdoor_lantern.jpg",
+    "description": "Illuminate your outdoor space with our Solar-Powered Outdoor Lantern. This eco-friendly lantern harnesses the power of the sun to provide warm and inviting light. Perfect for gardens, patios, and pathways, the solar-powered lantern adds a charming ambiance to your outdoor environment. Experience energy-efficient lighting with our Solar-Powered Outdoor Lantern.",
+    "tags": ["Outdoor Lantern", "Solar-Powered", "Outdoor Decor", "Eco-Friendly"]
+  },
+  {
+    "name": "Professional Chef's Knife Set",
+    "price": 129.99,
+    "image_link": "https://example.com/chefs_knife_set.jpg",
+    "description": "Upgrade your kitchen with our Professional Chef's Knife Set. Crafted from high-quality stainless steel, these knives deliver precision and durability. Whether you're a professional chef or a home cook, this knife set is a versatile and essential addition to your culinary arsenal. Elevate your cooking experience with our Professional Chef"
+  },
+  {
+    "name": "Organic Green Tea Set",
+    "price": 19.99,
+    "image_link": "https://example.com/green_tea_set.jpg",
+    "description": "Indulge in the natural goodness of our Organic Green Tea Set. Sourced from the finest tea gardens, this set includes a variety of handpicked green teas. Experience the refreshing and antioxidant-rich flavors that promote overall well-being. Each sip is a journey to tranquility and a healthier lifestyle.",
+    "tags": ["Tea", "Organic", "Green Tea", "Wellness", "Health"]
+  },
+  {
+    "name": "Professional Camera Kit",
+    "price": 1499.99,
+    "image_link": "https://example.com/pro_camera_kit.jpg",
+    "description": "Capture life's moments in stunning detail with our Professional Camera Kit. This kit includes a high-performance DSLR camera, a variety of lenses, and accessories to elevate your photography skills. Whether you're a seasoned photographer or a beginner, this kit provides the tools to unleash your creativity and capture memories like never before.",
+    "tags": ["Camera", "Photography", "Professional", "Technology", "Hobbies"]
+  },
+  {
+    "name": "Cozy Knit Throw Blanket",
+    "price": 39.99,
+    "image_link": "https://example.com/knit_throw_blanket.jpg",
+    "description": "Wrap yourself in warmth and comfort with our Cozy Knit Throw Blanket. Made from soft and luxurious knit fabric, this blanket is perfect for chilly evenings or lazy weekends. The timeless design adds a touch of elegance to any living space. Embrace coziness and style with this must-have accessory.",
+    "tags": ["Blanket", "Home Decor", "Cozy", "Knit", "Comfort"]
+  },
+  {
+    "name": "Gourmet Chocolate Collection",
+    "price": 29.99,
+    "image_link": "https://example.com/chocolate_collection.jpg",
+    "description": "Indulge your taste buds with our Gourmet Chocolate Collection. This exquisite assortment features handcrafted chocolates made from the finest cocoa beans. Each piece is a delightful combination of flavors, textures, and artistry. Whether as a gift or a personal treat, this collection is a celebration of the sweet moments in life.",
+    "tags": ["Chocolate", "Gourmet", "Dessert", "Gift", "Indulgence"]
+  },
+  {
+    "name": "Convertible Travel Backpack",
+    "price": 89.99,
+    "image_link": "https://example.com/travel_backpack.jpg",
+    "description": "Embark on your journeys with convenience and style using our Convertible Travel Backpack. This versatile backpack seamlessly transforms into a crossbody bag, offering flexibility for different travel scenarios. With multiple compartments, anti-theft features, and durable materials, it's the perfect companion for explorers and adventurers.",
+    "tags": ["Travel", "Backpack", "Convertible", "Adventure", "Luggage"]
+  },
+
+  {
+    "name": "Elegant Rose Gold Watch",
+    "price": 129.99,
+    "image_link": "https://example.com/rose_gold_watch.jpg",
+    "description": "Adorn your wrist with our Elegant Rose Gold Watch. This timeless timepiece combines sophistication with modern design. The rose gold finish adds a touch of luxury, while the minimalist dial ensures versatility for any occasion. Elevate your style with this exquisite accessory.",
+    "tags": ["Watch", "Rose Gold", "Fashion", "Accessories", "Elegance"]
+  },
+  {
+    "name": "Artisanal Ceramic Dinnerware Set",
+    "price": 79.99,
+    "image_link": "https://example.com/ceramic_dinnerware_set.jpg",
+    "description": "Enhance your dining experience with our Artisanal Ceramic Dinnerware Set. Crafted by skilled artisans, each piece showcases unique patterns and textures. This set includes dinner plates, bowls, and mugs, creating a cohesive and stylish table setting. Elevate your meals with the beauty of artisanal craftsmanship.",
+    "tags": ["Dinnerware", "Ceramic", "Artisanal", "Home", "Dining"]
+  },
+  {
+    "name": "High-Performance Gaming Laptop",
+    "price": 1499.99,
+    "image_link": "https://example.com/gaming_laptop.jpg",
+    "description": "Unleash the power of gaming with our High-Performance Gaming Laptop. Designed for gamers and power users, this laptop features cutting-edge hardware, high-refresh-rate display, and advanced cooling technology. Immerse yourself in the world of gaming with unparalleled performance and stunning graphics.",
+    "tags": ["Gaming Laptop", "Technology", "Gaming", "Performance", "Entertainment"]
+  },
+  {
+    "name": "Botanical Essential Oil Diffuser",
+    "price": 49.99,
+    "image_link": "https://example.com/essential_oil_diffuser.jpg",
+    "description": "Create a serene atmosphere in your home with our Botanical Essential Oil Diffuser. This diffuser combines aromatherapy with elegant design, dispersing your favorite essential oils for a calming and refreshing environment. The botanical patterns add a touch of nature to your living space.",
+    "tags": ["Essential Oil Diffuser", "Aromatherapy", "Home", "Wellness", "Relaxation"]
+  },
+  {
+    "name": "Classic Leather Messenger Bag",
+    "price": 109.99,
+    "image_link": "https://example.com/leather_messenger_bag.jpg",
+    "description": "Make a statement with our Classic Leather Messenger Bag. Crafted from premium leather, this bag combines timeless style with practicality. The spacious interior accommodates your essentials, making it perfect for work or daily adventures. Carry sophistication wherever you go with this classic messenger bag.",
+    "tags": ["Messenger Bag", "Leather", "Fashion", "Accessories", "Work"]
+  }
+]

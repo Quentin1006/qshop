@@ -1,0 +1,17 @@
+.side_panel_wrapper {
+  padding: 3px;
+  width: 100%;
+  border-left: solid 1px grey;
+}
+
+.side_panel_wrapper .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid grey;
+  width: 100%;
+}
+
+.side_panel_wrapper .title {
+  font-size: 18px;
+}

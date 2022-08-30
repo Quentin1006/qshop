@@ -6,7 +6,11 @@
       "type": "node-terminal",
       "request": "launch",
       "command": "npm run dev",
-      "cwd": "${workspaceFolder}/front"
+      "cwd": "${workspaceFolder}/frontend",
+      "env": {
+        "http_proxy": "http://172.17.177.2:3128",
+        "https_proxy": "http://172.17.177.2:3128"
+      }
     },
     {
       "name": "Next.js: debug client-side",

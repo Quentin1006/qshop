@@ -1,0 +1,15 @@
+.subheader_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #4f4ff3;
+  color: white;
+}
+
+.subheader_item_wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 5px 15px;
+  border: 1px rgb(119, 79, 79) solid;
+  width: 100%;
+}
