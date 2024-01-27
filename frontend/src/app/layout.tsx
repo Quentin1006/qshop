@@ -62,7 +62,7 @@ async function getBasket(id: string) {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await getClientIdentifier();
   console.log('in rootLayout', { session });
-  const basket = await getBasket(session.id);
+  // const basket = await getBasket(session.id);
   const categories = await getCategories();
   return (
     <html>

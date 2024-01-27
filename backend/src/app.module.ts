@@ -7,9 +7,17 @@ import { CategoriesModule } from './categories/categories.module';
 import { ProductsModule } from './products/products.module';
 import { AuthzModule } from './authz/authz.module';
 import { BasketModule } from './basket/basket.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UsersModule, CategoriesModule, ProductsModule, AuthzModule, BasketModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    UsersModule,
+    CategoriesModule,
+    ProductsModule,
+    AuthzModule,
+    BasketModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
