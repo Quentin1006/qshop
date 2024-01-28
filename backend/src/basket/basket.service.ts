@@ -37,31 +37,7 @@ export class BasketService {
       });
     await this.prisma.$transaction(updateBasketItemPromises);
 
-    const basketWithUpdatedItems = await this.prisma.basket.findUnique({
-      where: { refId: basketFromUser.refId },
-      select: this.getSelectQuery(),
-    });
-
-    return {
-      refId: basketWithUpdatedItems.refId,
-      anonymous: basketWithUpdatedItems.anonymous,
-      items: basketWithUpdatedItems.items.map(({ id, quantity, product }) => {
-        const { price, discount, name } = product;
-        return {
-          quantity,
-          id,
-          product: {
-            id: product.id,
-            name,
-            price: this.productsHelper.createPrice({
-              discount,
-              price,
-              discountType: 'percentage',
-            }),
-          },
-        };
-      }),
-    };
+    return await this.getBasket(basketFromUser.refId, { create: true, anonymous: false });
   }
 
   async findBasket(basketId: string) {

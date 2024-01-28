@@ -5,7 +5,7 @@ import {
   UseGuards,
   SetMetadata,
   ForbiddenException,
-  Request,
+  Req,
   Post,
   Body,
 } from '@nestjs/common';
@@ -14,6 +14,7 @@ import { Basket } from 'qshop-sdk';
 import { BasketService } from './basket.service';
 import { BasketItemService } from './basket-item.service';
 import { AuthenticationGuard } from 'src/authz/authentication.guard';
+import { Request } from 'express';
 
 @Controller('basket')
 export class BasketController {
@@ -27,7 +28,7 @@ export class BasketController {
   @SetMetadata('allow-anonymous', true)
   async getBasket(
     @Param('basketId') basketId: string,
-    @Request() req,
+    @Req() req: Request,
   ): Promise<Basket | ForbiddenException> {
     const userId = (req as any).auth?.sub;
 
