@@ -30,11 +30,11 @@ export class AuthenticationGuard {
 
     try {
       await checkJwt(req, res);
-      console.log({ reqUser: req.user });
       return true;
     } catch (error) {
-      const allowAnonymous = this.reflector.get<boolean>('allow-anonymous', context.getHandler()) || false;
-      if (allowAnonymous) {
+      const allowAnonymous =
+        this.reflector.get<boolean>('allow-anonymous', context.getClass()) || false;
+      if (error.code === 'credentials_required' && allowAnonymous) {
         return true;
       }
       throw new UnauthorizedException(error);

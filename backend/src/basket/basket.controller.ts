@@ -8,6 +8,7 @@ import {
   Req,
   Post,
   Body,
+  Delete,
 } from '@nestjs/common';
 import { Basket } from 'qshop-sdk';
 
@@ -15,7 +16,12 @@ import { BasketService } from './basket.service';
 import { BasketItemService } from './basket-item.service';
 import { AuthenticationGuard } from 'src/authz/authentication.guard';
 import { Request } from 'express';
+import { BasketAuthorizationGuard } from './basket.guard';
+import { AddItemDto } from './dto/add-item.dto';
+import { DeleteItemDto } from './dto/delete-item.dto';
 
+@UseGuards(AuthenticationGuard, BasketAuthorizationGuard)
+@SetMetadata('allow-anonymous', true)
 @Controller('basket')
 export class BasketController {
   constructor(
@@ -23,73 +29,35 @@ export class BasketController {
     private readonly basketItemService: BasketItemService,
   ) {}
 
-  @Get(':basketId')
-  @UseGuards(AuthenticationGuard)
-  @SetMetadata('allow-anonymous', true)
-  async getBasket(
-    @Param('basketId') basketId: string,
+  @Get(':refId')
+  async getBasketFromRefIdOrUserId(
+    @Param('refId') refId: string,
     @Req() req: Request,
   ): Promise<Basket | ForbiddenException> {
-    const userId = (req as any).auth?.sub;
-
-    if (userId) {
-      if (userId === basketId) {
-        const basketFromUser = await this.basketService.getBasket(userId, {
-          create: true,
-          anonymous: false,
-        });
-        return basketFromUser;
-      }
-
-      // User logged in after adding items to basket as anon
-      // At this point he is supposed to have a basket
-      const [basketFromBasketId, basketFromUser] = await Promise.all([
-        this.basketService.getBasket(basketId, { create: false, anonymous: true }),
-        this.basketService.getBasket(userId, { create: false, anonymous: false }),
-      ]);
-
-      if (!basketFromBasketId.anonymous) {
-        // Make sure you don't access somebody else's basket
-        return new ForbiddenException('You are not authorized to get this basket');
-      }
-
-      const mergedBasket = await this.basketService.mergeBaskets(
-        basketFromBasketId,
-        basketFromUser,
-      );
-      return mergedBasket;
-    }
-
-    const basketFromBasketId = await this.basketService.getBasket(basketId, {
-      create: false,
-      anonymous: true,
-    });
-    if (basketFromBasketId?.refId && !basketFromBasketId.anonymous) {
-      return new ForbiddenException(
-        'You are trying to access a basket that belongs to another user',
-      );
-    }
-
-    if (!basketFromBasketId?.refId) {
-      return await this.basketService.createBasket(basketId, true);
-    }
-
-    return basketFromBasketId;
+    const userId = (req as any).auth?.sub as string;
+    return this.basketService.getBasketFromRefIdOrUserId(refId, userId);
   }
 
-  @Post(':basketId/addItem')
-  @UseGuards(AuthenticationGuard)
-  @SetMetadata('allow-anonymous', true)
+  @Post(':refId/addItem')
   async addBasketItem(
-    @Param('basketId') basketId: string,
-    @Body('quantity') quantity: string,
-    @Body('productId') productId: string,
+    @Param('refId') refId: string,
+    @Body() addItemDto: AddItemDto,
+    @Req() req: Request,
   ) {
-    return this.basketItemService.addBasketItem(basketId, +productId, +quantity);
+    const userId = (req as any).auth?.sub as string;
+    const { productId, quantity } = addItemDto;
+    refId = userId ?? refId;
+    return this.basketItemService.addBasketItem({ refId, productId, quantity });
   }
 
-  @Get(':basketId/count')
-  countBasketItems(@Param('basketId') basketId: string) {
-    return this.basketService.countBasketItems(basketId);
+  @Delete(':refId/deleteItem')
+  async deleteBasketItem(@Param('refId') refId: string, @Body() deleteItemDto: DeleteItemDto) {
+    const { id } = deleteItemDto;
+    return this.basketItemService.deleteBasketItem({ refId, basketItemId: id });
+  }
+
+  @Get(':refId/count')
+  countBasketItems(@Param('refId') refId: string) {
+    return this.basketService.countBasketItems(refId);
   }
 }

@@ -4,10 +4,17 @@ import { type Product } from 'qshop-sdk';
 
 @Injectable()
 export class ProductsHelper {
-  private applyDiscount(price: Decimal, discount: number, type: Product['price']['discountType']): number {
+  private applyDiscount(
+    price: Decimal,
+    discount: number,
+    type: Product['price']['discountType'],
+  ): number {
+    if (discount === 0) {
+      return price.toNumber();
+    }
     if (type === 'percentage') {
       const priceAsNb = price.toNumber();
-      return Number((priceAsNb - (priceAsNb * discount) / 100).toFixed());
+      return parseFloat((priceAsNb - (priceAsNb * discount) / 100).toFixed());
     } else {
       throw new Error('Discount type not recognized');
     }

@@ -62,7 +62,8 @@ async function getBasket(id: string) {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await getClientIdentifier();
   console.log('in rootLayout', { session });
-  // const basket = await getBasket(session.id);
+  const basket = await getBasket(session.id);
+  console.log('in rootLayout', { basket });
   const categories = await getCategories();
   return (
     <html>
@@ -75,7 +76,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <div className="page">
             <div className="main">
               <div className="main-content">
-                <Header categories={categories} user={session?.user} />
+                <Header categories={categories} user={session?.user} cartItemsCount={basket?.items.length} />
                 <SubHeader categories={categories} />
                 {children}
               </div>

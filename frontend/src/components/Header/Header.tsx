@@ -108,8 +108,11 @@ export default ({ cartItemsCount, categories, user }: HeaderProps) => {
               </NavigationMenuLink>
             </NavigationMenuItem>
 
-            <NavigationMenuItem>
+            <NavigationMenuItem className="relative">
               <NavigationMenuLink href="https://github.com/radix-ui">
+                <div className="absolute left-4 top-0.5 flex h-[20px] w-[20px] items-center justify-center text-lg text-orange-600">
+                  {cartItemsCount}
+                </div>
                 <ShoppingCart />
                 Panier
               </NavigationMenuLink>
