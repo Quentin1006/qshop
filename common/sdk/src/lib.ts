@@ -70,12 +70,14 @@ export type ProductDetails = Product & {
 };
 
 export type BasketItem = {
+  id: number;
   quantity: number;
   product: Pick<Product, "id" | "name" | "price">;
 };
 
 export type Basket = {
   refId: string;
+  anonymous: boolean;
   items: BasketItem[];
 };
 

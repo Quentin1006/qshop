@@ -20,6 +20,7 @@ model User {
   comments         Comment[]
   productsSearched Product[] @relation("productsSearchedByUser")
   productsBought   Product[] @relation("productsBoughtByUser")
+  Basket           Basket[]
 }
 
 enum RoleName {
@@ -74,13 +75,12 @@ model BasketItem {
   quantity  Int
   dateAdded DateTime        @default(now())
   state     BasketItemState
-  Basket    Basket?         @relation(fields: [basketId], references: [id])
-  basketId  Int?
+  basket    Basket?         @relation(fields: [basketId], references: [refId])
+  basketId  String?
 }
 
 model Basket {
-  id        Int          @id @default(autoincrement())
-  refId     String       @unique
+  refId     String       @id @unique
   anonymous Boolean      @default(true)
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
@@ -88,6 +88,8 @@ model Basket {
   items     BasketItem[]
   order     Order?       @relation(fields: [orderId], references: [id])
   orderId   String?      @unique
+  user      User?        @relation(fields: [userId], references: [id])
+  userId    String?      @unique
 }
 
 model Product {

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './jwt.strategy';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthenticationGuard } from './authentication.guard';
 
 @Module({
-  imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
-  providers: [JwtStrategy],
-  exports: [PassportModule],
+  imports: [ConfigModule],
+  providers: [ConfigService, AuthenticationGuard],
+  exports: [AuthenticationGuard],
 })
 export class AuthzModule {}
