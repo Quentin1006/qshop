@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getIronSession } from 'iron-session';
+import { v4 } from 'uuid';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(req: NextRequest) {
@@ -8,7 +9,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const idSession = 's-1234';
+  const idSession = `s-${v4()}`;
 
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set('x-id-session', idSession);

@@ -1,27 +1,29 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Construction } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { useAppContext } from '@/contexts/AppContext';
 
 export type AddToBasketProps = {
   inStock: number;
   priceWithCurrency: string;
   productId: number;
-  basketId: string;
 };
 
 export default function AddToBasket({ inStock, priceWithCurrency, productId }: AddToBasketProps) {
   const [quantity, setQuantity] = useState('1');
+  const router = useRouter();
+  const { basket } = useAppContext();
   const handleQuantityChange = (value: string) => {
     setQuantity(value);
   };
 
   const handleAddToBasket = () => {
     console.log('add to basket', { productId, quantity });
-    // fetch(`http://localhost:8088/basket/${basketId}/addItem`, {
-    fetch(`http://localhost:8088/basket/s-1234/addItem`, {
+    fetch(`http://localhost:8088/basket/${basket.refId}/add-item`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -31,6 +33,7 @@ export default function AddToBasket({ inStock, priceWithCurrency, productId }: A
         quantity,
       }),
     });
+    router.push(`/cart/new-item/${productId}`);
   };
   return (
     <>

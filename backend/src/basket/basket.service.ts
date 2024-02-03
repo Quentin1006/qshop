@@ -2,7 +2,7 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Basket } from 'qshop-sdk';
 import { ProductsHelper } from 'src/products/products.helper';
-import { BasketItemState } from '@prisma/client';
+import { BasketItemState, Prisma } from '@prisma/client';
 import { UnwrapPromise } from 'src/typings';
 
 export type MergeBasketsInput =
@@ -153,17 +153,23 @@ export class BasketService {
         select: {
           quantity: true,
           id: true,
+          state: true,
           product: {
             select: {
+              sku: true,
               name: true,
               price: true,
               id: true,
               discount: true,
+              link: true,
             },
           },
         },
+        orderBy: {
+          dateAdded: 'asc',
+        },
       },
-    };
+    } satisfies Prisma.BasketSelect;
   }
 
   // FIXME: Should be typed
@@ -171,14 +177,17 @@ export class BasketService {
     return {
       refId: basket.refId,
       anonymous: basket.anonymous,
-      items: basket.items.map(({ id, quantity, product }) => {
-        const { price, discount, name } = product;
+      items: basket.items.map(({ id, quantity, product, state }) => {
+        const { price, discount, name, link, sku } = product;
         return {
           quantity,
           id,
+          state,
           product: {
             id: product.id,
             name,
+            link,
+            sku: sku > 20 ? 20 : sku, // FIXME: Make it a helper to reuse everywhere
             price: this.productsHelper.createPrice({
               discount,
               price,

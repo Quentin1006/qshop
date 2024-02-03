@@ -22,7 +22,6 @@ export const mapping: Record<string, string> = {
 };
 
 export default function SubHeader({ categories }: SubHeaderProps) {
-  console.log({ categories });
   return (
     <>
       <NavigationMenu className="z-0 bg-slate-700 pl-1">

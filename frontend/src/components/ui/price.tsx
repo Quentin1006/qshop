@@ -14,7 +14,7 @@ export default function Price({ value, symbol }: PriceProps) {
   if (!decimals) {
     decimals = '00';
   }
-  if (parseInt(decimals) <= 9) {
+  if (parseInt(decimals) > 0 && parseInt(decimals) <= 9) {
     decimals = '0' + decimals;
   }
 

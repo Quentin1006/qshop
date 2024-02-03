@@ -107,7 +107,7 @@ export default async function ({ params }: ProductProps) {
         <div className="order-panel border-bg-slate-500 w-1/6 min-w-[220px] rounded-md border p-2">
           <AddToBasket
             priceWithCurrency={toPrice(pDetails.price.current, '€')}
-            inStock={pDetails.inStock}
+            inStock={pDetails.sku}
             productId={pDetails.id}
           />
         </div>

@@ -3,13 +3,16 @@ import { PrismaService } from '../prisma.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { GetQueryProducts } from './dto/get-query-products';
 import { Prisma } from '@prisma/client';
-import { Product, ProductDetails } from 'qshop-sdk';
+import { type Product, type ProductDetails } from 'qshop-sdk';
 import { Decimal } from '@prisma/client/runtime/library';
 import { ProductsHelper } from './products.helper';
 
 @Injectable()
 export class ProductsService {
-  constructor(private readonly prisma: PrismaService, private readonly productsHelper: ProductsHelper) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly productsHelper: ProductsHelper,
+  ) {}
   create(createProductDto: CreateProductDto) {
     return 'This action adds a new product';
   }
@@ -46,12 +49,13 @@ export class ProductsService {
   }
 
   findById(id: number) {
-    return this.prisma.product.findFirst({
+    return this.prisma.product.findUnique({
       where: { id },
       select: {
         id: true,
         name: true,
         description: true,
+        link: true,
         tags: {
           select: {
             name: true,
@@ -67,6 +71,7 @@ export class ProductsService {
       name: true,
       description: true,
       discount: true,
+      sku: true,
       tags: {
         select: {
           name: true,
@@ -111,7 +116,11 @@ export class ProductsService {
     };
   }
 
-  private applyDiscount(price: Decimal, discount: number, type: Product['price']['discountType']): number {
+  private applyDiscount(
+    price: Decimal,
+    discount: number,
+    type: Product['price']['discountType'],
+  ): number {
     if (type === 'percentage') {
       const priceAsNb = price.toNumber();
       return Number((priceAsNb - (priceAsNb * discount) / 100).toFixed());
@@ -141,12 +150,13 @@ export class ProductsService {
     ]);
 
     const data: Product[] = dataWithoutType.map(
-      ({ link, description, id, name, dateAdded, rate, tags, price, discount }) => ({
+      ({ link, description, id, name, dateAdded, rate, sku, tags, price, discount }) => ({
         link,
         description,
         id,
         name,
         dateAdded,
+        sku: sku > 20 ? 20 : sku,
         rate: {
           value: rate.value.toNumber(),
           votes: rate.votes,
@@ -218,7 +228,6 @@ export class ProductsService {
     const productDetailsFromDb = await this.prisma.productDetails.findUnique({
       where: { productId: id },
       select: {
-        sku: true,
         productId: true,
         longDescription: true,
         brand: true,
@@ -235,6 +244,7 @@ export class ProductsService {
           select: {
             id: true,
             link: true,
+            sku: true,
             dateAdded: true,
             tags: {
               select: {
@@ -282,7 +292,7 @@ export class ProductsService {
         value: product.rate.value.toNumber(),
         votes: product.rate.votes,
       },
-      inStock: productDetailsFromDb.sku > 20 ? 1_000 : productDetailsFromDb.sku,
+      sku: product.sku > 20 ? 20 : product.sku,
       price: {
         current: this.applyDiscount(rawPrice, product.discount, 'percentage'),
         raw: rawPrice.toNumber(),

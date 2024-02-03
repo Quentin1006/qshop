@@ -9,6 +9,7 @@ import {
   Post,
   Body,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { Basket } from 'qshop-sdk';
 
@@ -19,6 +20,7 @@ import { Request } from 'express';
 import { BasketAuthorizationGuard } from './basket.guard';
 import { AddItemDto } from './dto/add-item.dto';
 import { DeleteItemDto } from './dto/delete-item.dto';
+import { PatchItemDto } from './dto/patch-item.dto';
 
 @UseGuards(AuthenticationGuard, BasketAuthorizationGuard)
 @SetMetadata('allow-anonymous', true)
@@ -38,7 +40,7 @@ export class BasketController {
     return this.basketService.getBasketFromRefIdOrUserId(refId, userId);
   }
 
-  @Post(':refId/addItem')
+  @Post(':refId/add-item')
   async addBasketItem(
     @Param('refId') refId: string,
     @Body() addItemDto: AddItemDto,
@@ -50,7 +52,19 @@ export class BasketController {
     return this.basketItemService.addBasketItem({ refId, productId, quantity });
   }
 
-  @Delete(':refId/deleteItem')
+  @Patch(':refId/update-item')
+  async updateBasketItem(
+    @Param('refId') refId: string,
+    @Body() patchItemDto: PatchItemDto,
+    @Req() req: Request,
+  ) {
+    const userId = (req as any).auth?.sub as string;
+    const { state, quantity, id } = patchItemDto;
+    refId = userId ?? refId;
+    return this.basketItemService.patchBasketItem({ refId, state, quantity, id });
+  }
+
+  @Delete(':refId/delete-item')
   async deleteBasketItem(@Param('refId') refId: string, @Body() deleteItemDto: DeleteItemDto) {
     const { id } = deleteItemDto;
     return this.basketItemService.deleteBasketItem({ refId, basketItemId: id });

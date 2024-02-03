@@ -45,6 +45,7 @@ export type Product = {
   name: string;
   rate: Rate;
   tags: Tag[];
+  sku: number;
 };
 
 export type Store = {
@@ -60,7 +61,6 @@ export type ReturnPolicy = {
 };
 
 export type ProductDetails = Product & {
-  inStock: number;
   longDescription: string;
   caracteristics: string[];
   technicalDescription: Record<string, string>;
@@ -69,10 +69,12 @@ export type ProductDetails = Product & {
   returnPolicy: ReturnPolicy;
 };
 
+export type BasketItemState = Prisma.BasketItemState;
 export type BasketItem = {
   id: number;
   quantity: number;
-  product: Pick<Product, "id" | "name" | "price">;
+  state: Prisma.BasketItemState;
+  product: Pick<Product, "id" | "name" | "price" | "link" | "sku">;
 };
 
 export type Basket = {

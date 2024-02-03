@@ -8,6 +8,13 @@ export type AddBasketItemInput = {
   quantity: number;
 };
 
+export type PatchBasketItemInput = {
+  refId: string;
+  id: number;
+  state: BasketItemState;
+  quantity: number;
+};
+
 export type DeleteBasketItemInput = {
   refId: string;
   basketItemId: number;
@@ -18,6 +25,13 @@ export class BasketItemService {
   constructor(private readonly prisma: PrismaService) {}
 
   async addBasketItem({ refId, productId, quantity }: AddBasketItemInput) {
+    const basketItem = await this.prisma.basketItem.findFirst({
+      where: {
+        basketId: refId,
+        productId,
+      },
+    });
+
     const updateBasket = this.prisma.basket.update({
       where: {
         refId,
@@ -27,24 +41,71 @@ export class BasketItemService {
       },
     });
 
-    const createBasketItem = this.prisma.basketItem.create({
+    let upsertBasketItem;
+    if (basketItem?.id) {
+      upsertBasketItem = this.prisma.basketItem.update({
+        where: {
+          basketId_id: {
+            basketId: refId,
+            id: basketItem.id,
+          },
+        },
+        data: {
+          state: BasketItemState.ACTIVE,
+          quantity: (basketItem?.quantity ?? 0) + quantity,
+        },
+      });
+    } else {
+      upsertBasketItem = this.prisma.basketItem.create({
+        data: {
+          basket: {
+            connect: {
+              refId,
+            },
+          },
+          product: {
+            connect: {
+              id: productId,
+            },
+          },
+          state: BasketItemState.ACTIVE,
+          quantity,
+        },
+      });
+    }
+    await this.prisma.$transaction([updateBasket, upsertBasketItem]);
+  }
+
+  async patchBasketItem({ refId, id, state, quantity }: PatchBasketItemInput) {
+    const data: Partial<PatchBasketItemInput> = {};
+    if (state) {
+      data.state = state;
+    }
+    if (quantity) {
+      data.quantity = quantity;
+    }
+
+    const updateBasket = this.prisma.basket.update({
+      where: {
+        refId,
+      },
       data: {
-        basket: {
-          connect: {
-            refId,
-          },
-        },
-        product: {
-          connect: {
-            id: productId,
-          },
-        },
-        state: BasketItemState.ACTIVE,
-        quantity,
+        updatedAt: new Date(),
       },
     });
 
-    await this.prisma.$transaction([updateBasket, createBasketItem]);
+    const patchBasketItem = this.prisma.basketItem.update({
+      where: {
+        basketId_id: {
+          basketId: refId,
+          id,
+        },
+      },
+      data,
+    });
+
+    const result = await this.prisma.$transaction([updateBasket, patchBasketItem]);
+    return { result };
   }
 
   async deleteBasketItem({ refId, basketItemId }: DeleteBasketItemInput) {

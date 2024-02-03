@@ -75,8 +75,10 @@ model BasketItem {
   quantity  Int
   dateAdded DateTime        @default(now())
   state     BasketItemState
-  basket    Basket?         @relation(fields: [basketId], references: [refId])
-  basketId  String?
+  basket    Basket          @relation(fields: [basketId], references: [refId])
+  basketId  String
+
+  @@unique([basketId, id])
 }
 
 model Basket {
@@ -99,6 +101,7 @@ model Product {
   link           String
   name           String
   description    String
+  sku            Int
   dateAdded      DateTime         @default(now())
   rate           Rate?
   comments       Comment[]
@@ -121,7 +124,6 @@ model ProductDetails {
   store                Store        @relation(fields: [storeId], references: [id])
   promotionId          Int?
   promotion            Promotion?   @relation(fields: [promotionId], references: [id])
-  sku                  Int
   productId            Int          @unique
   product              Product      @relation(fields: [productId], references: [id])
 }

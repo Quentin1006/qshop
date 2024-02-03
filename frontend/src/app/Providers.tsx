@@ -2,11 +2,17 @@
 
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 
-import { AppProvider } from '../contexts/AppContext';
+import { AppProvider, AppProviderProps } from '../contexts/AppContext';
 
-export default function Providers({ children }: any) {
+export type ProviderProps = {
+  children: React.ReactNode;
+  initialAppContext: AppProviderProps;
+};
+
+export default function Providers({ children, initialAppContext }: ProviderProps) {
+  console.log({ initialAppContext });
   return (
-    <AppProvider>
+    <AppProvider {...initialAppContext}>
       <UserProvider>{children}</UserProvider>
     </AppProvider>
   );

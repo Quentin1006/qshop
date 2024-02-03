@@ -79,10 +79,12 @@ try {
 
   const product1 = await prisma.product.create({
     data: {
-      description: 'Taille Standard - Format : Sac a Main Femme, Manteau Femme, Sacoche Homme, Veste, Sac a Dos',
+      description:
+        'Taille Standard - Format : Sac a Main Femme, Manteau Femme, Sacoche Homme, Veste, Sac a Dos',
       name: 'REDimpact Spray Anti Agression de Poche Gel 40 ML',
       price: 24.95,
       discount: 5,
+      sku: 3000,
       link: 'http://localhost:5555/images/71twbu4qqrL.jpg',
       rate: {
         create: {
@@ -112,7 +114,6 @@ try {
 
   await prisma.productDetails.create({
     data: {
-      sku: 3000,
       longDescription:
         "La marque SAFE DEFENSE a développé un spray anti-agression composé d'un gel défensif de nouvelle génération que vous pouvez porter et transporter de manière totalement légale. REDimpact est le spray d'autodéfense 100 % légal ! La consistance de gel adhère à la peau et est extrêmement difficile à enlever, reste pendant plusieurs jours. Le spray a une buse fine et courte pour stimuler le gel sous forme de spray concentré. Il ne se disperse pas et il n'y a aucun risque que le vent souffle le le produit vers vous ou toucher des tiers. Peut être utilisé dans des endroits fermés. Le port effectif est d'environ 4 mètres, ce qui est d'excellentes performances pour un spray.",
       brand: 'SAFE DEFENSE',
@@ -144,6 +145,7 @@ try {
         'OUTJUT Chaufferette Main Reutilisable 6000mAh Chauffe Main électrique Portable 3 Modes de Chauffage Rapide pour Sport en Plein Air Golf Camping en Hiver',
       name: '2 Pack Chauffe Main Rechargeable',
       price: 28.99,
+      sku: 18,
       link: 'http://localhost:5555/images/71DXUZ1PXuL.jpg',
       rate: {
         create: {
@@ -163,7 +165,8 @@ try {
 
   const product3 = await prisma.product.create({
     data: {
-      description: 'Vent Respirant Antidérapant Idéal pour Vélo Exercice Sport Running Ski Snowboard Moto',
+      description:
+        'Vent Respirant Antidérapant Idéal pour Vélo Exercice Sport Running Ski Snowboard Moto',
       name: 'Unigear Gants Doublure Chauffants, sous Gants à Écran Tactile Gants de Cyclisme Gants de Course à Pied Coupe',
       price: 18.99,
       link: 'http://localhost:5555/images/81dX6ms372L.jpg',
@@ -173,6 +176,7 @@ try {
           votes: 10271,
         },
       },
+      sku: 21,
       tags: {
         connect: [
           {
@@ -188,7 +192,8 @@ try {
 
   const product4 = await prisma.product.create({
     data: {
-      description: 'Appareil de streaming avec fonctionnalité Écran dynamique et prenant en charge le Wi-Fi 6E',
+      description:
+        'Appareil de streaming avec fonctionnalité Écran dynamique et prenant en charge le Wi-Fi 6E',
       name: 'Nouvel Amazon Fire TV Stick 4K Max',
       price: 18.99,
       link: 'http://localhost:5555/images/81v6diGJBsL.jpg',
@@ -198,6 +203,7 @@ try {
           votes: 10271,
         },
       },
+      sku: 74,
       tags: {
         connect: [
           {
@@ -412,7 +418,8 @@ try {
   });
 
   // #C.2
-  const newRate = (productDetails.rate.value * productDetails.rate.votes + 1.5) / (productDetails.rate.votes + 1);
+  const newRate =
+    (productDetails.rate.value * productDetails.rate.votes + 1.5) / (productDetails.rate.votes + 1);
   const updatedWithNewRate = await prisma.product.update({
     where: {
       id: productDetails.id,
