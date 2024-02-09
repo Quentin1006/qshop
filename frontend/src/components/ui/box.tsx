@@ -6,7 +6,11 @@ export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Box = React.forwardRef<HTMLDivElement, BoxProps>(({ className, children, ...props }, ref) => {
   return (
-    <div className={cn('flex h-full items-center justify-center bg-white p-4', className)} ref={ref} {...props}>
+    <div
+      className={cn('flex h-full flex-col items-center justify-center bg-white p-4', className)}
+      ref={ref}
+      {...props}
+    >
       {children}
     </div>
   );

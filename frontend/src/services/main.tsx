@@ -70,3 +70,19 @@ export const updateBasketItem = async (basketId: string, body: Partial<BasketIte
 
   return res.json();
 };
+
+export const deleteBasketItem = async (basketId: string, id: number) => {
+  const res = await fetch(`http://localhost:8088/basket/${basketId}/delete-item`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id }),
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
+};

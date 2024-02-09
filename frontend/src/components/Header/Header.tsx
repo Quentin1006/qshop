@@ -22,6 +22,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Category } from 'qshop-sdk';
 import { upperFirst } from '@/helpers/string.helper';
+import Link from 'next/link';
+import { BasicLink } from '../ui/basic-link';
 
 type HeaderProps = {
   cartItemsCount?: number;
@@ -94,8 +96,13 @@ export default ({ cartItemsCount, categories, user }: HeaderProps) => {
                     <div className="border-r-1 flex w-1/2 pl-2">
                       <h3 className="font-bold">Vos listes d'envies</h3>
                     </div>
-                    <div className="flex w-1/2 pl-2">
+                    <div className="flex w-1/2 flex-col pl-2">
                       <h3 className="font-bold">Votre compte</h3>
+                      <div className="text-sm">
+                        <BasicLink className="text-slate-600" href="/account">
+                          Votre compte
+                        </BasicLink>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -109,13 +116,15 @@ export default ({ cartItemsCount, categories, user }: HeaderProps) => {
             </NavigationMenuItem>
 
             <NavigationMenuItem className="relative">
-              <NavigationMenuLink href="https://github.com/radix-ui">
-                <div className="absolute left-4 top-0.5 flex h-[20px] w-[20px] items-center justify-center text-lg text-orange-600">
-                  {cartItemsCount}
-                </div>
-                <ShoppingCart />
-                Panier
-              </NavigationMenuLink>
+              <Link href="/cart/view">
+                <NavigationMenuLink>
+                  <div className="absolute left-4 top-0.5 flex h-[20px] w-[20px] items-center justify-center text-lg text-orange-600">
+                    {cartItemsCount}
+                  </div>
+                  <ShoppingCart />
+                  Panier
+                </NavigationMenuLink>
+              </Link>
             </NavigationMenuItem>
             <NavigationMenuIndicator />
           </NavigationMenuList>

@@ -5,6 +5,7 @@ import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer';
 import { BasketPanel } from '@/components/BasketPanel';
 import { SubHeader } from '@/components/SubHeader';
+import { Toaster } from '@/components/ui/sonner';
 
 import { getBasket, getCategories, getClientIdentifier } from '@/services/main';
 
@@ -44,6 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <BasketPanel />
             </div>
           </div>
+          <Toaster />
         </body>
       </Providers>
     </html>

@@ -126,6 +126,6 @@ export class BasketItemService {
         productId: true,
       },
     });
-    await this.prisma.$transaction([updateBasket, deleteBasketItem]);
+    return await this.prisma.$transaction([updateBasket, deleteBasketItem]);
   }
 }

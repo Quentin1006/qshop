@@ -9,8 +9,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { toPrice } from '@/helpers/string.helper';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { getBasket, updateBasketItem } from '@/services/main';
+import { getBasket, updateBasketItem, deleteBasketItem } from '@/services/main';
 import { useAppContext } from '@/contexts/AppContext';
+import { StockDisplay } from '@/components/StockDisplay';
 
 export type BasketItemProps = {
   item: BasketItem;
@@ -20,11 +21,12 @@ export type BasketItemProps = {
 const BasketItemTile = ({ item, basketId }: BasketItemProps) => {
   const [disabled, setDisabled] = React.useState(false);
   const { setBasket } = useAppContext();
+
   const handleUpdateBasketItemSelection = async (isActive: boolean) => {
     setDisabled(true);
     const body: Partial<BasketItem> = {
       id: item.id,
-      state: isActive ? 'ACTIVE' : 'ASIDE',
+      state: isActive ? 'ACTIVE' : 'INACTIVE',
     };
     try {
       await updateBasketItem(basketId, body);
@@ -32,6 +34,20 @@ const BasketItemTile = ({ item, basketId }: BasketItemProps) => {
       setBasket(newBasket);
     } catch (error) {
       console.error('Failed to update basket item', error);
+    }
+
+    setDisabled(false);
+  };
+
+  const handleDeleteItem = async () => {
+    setDisabled(true);
+
+    try {
+      await deleteBasketItem(basketId, item.id);
+      const newBasket = await getBasket(basketId);
+      setBasket(newBasket);
+    } catch (error) {
+      console.error('Failed to delete basket item', error);
     }
 
     setDisabled(false);
@@ -53,6 +69,24 @@ const BasketItemTile = ({ item, basketId }: BasketItemProps) => {
 
     setDisabled(false);
   };
+
+  const handleMoveAsideItem = async () => {
+    setDisabled(true);
+    const body: Partial<BasketItem> = {
+      id: item.id,
+      state: 'ASIDE',
+    };
+    try {
+      await updateBasketItem(basketId, body);
+      const newBasket = await getBasket(basketId);
+      setBasket(newBasket);
+    } catch (error) {
+      console.error('Failed to update basket item', error);
+    }
+
+    setDisabled(false);
+  };
+
   return (
     <>
       <div className="relative flex items-center py-6">
@@ -67,14 +101,10 @@ const BasketItemTile = ({ item, basketId }: BasketItemProps) => {
         <div className="flex flex-1 flex-wrap">
           <div className="w-3/4">
             <h3 className="text-xl">{item.product.name}</h3>
-            {item.product.sku ? (
-              <p className="text-sm text-green-700">En stock</p>
-            ) : (
-              <p className="text-sm text-red-700">En rupture de stock</p>
-            )}
+            <StockDisplay sku={item.product.sku} />
           </div>
           <div className="flex w-1/4 justify-end text-lg font-semibold">{toPrice(item.product.price.current, '€')}</div>
-          <div className="flex w-full items-center gap-6 py-4">
+          <div className="flex w-full items-center gap-6 py-4 sm:gap-2">
             <SelectQuantity
               prefix="Qté"
               disabled={disabled}
@@ -83,11 +113,11 @@ const BasketItemTile = ({ item, basketId }: BasketItemProps) => {
               onQtyChange={handleQuantityChange}
             />
             <Separator orientation="vertical" />
-            <Button variant="link" size="link">
+            <Button variant="link" size="link" onClick={handleDeleteItem}>
               Supprimer
             </Button>
             <Separator orientation="vertical" />
-            <Button variant="link" size="link">
+            <Button variant="link" size="link" onClick={handleMoveAsideItem}>
               Mettre de coté
             </Button>
           </div>
