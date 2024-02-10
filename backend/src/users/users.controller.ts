@@ -8,19 +8,18 @@ import {
   NotFoundException,
   Request,
   UseGuards,
-  SetMetadata,
   Patch,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UseRoleHybridGuard } from 'src/authz/hybrid.guard';
 import { AuthenticationGuard } from 'src/authz/authentication.guard';
-import { AuthorizationGuard } from 'src/authz/authorization.guard';
+import { UserAuthorizationGuard } from './users.guard';
 import { AddressService } from 'src/address/address.service';
 import { CreateAddressDto } from 'src/address/dto/create-address.dto';
 import { UpdateAddressDto } from 'src/address/dto/update-address.dto';
-import { Address } from 'qshop-sdk';
+import { type Address } from 'qshop-sdk';
 
+@UseGuards(AuthenticationGuard, UserAuthorizationGuard)
 @Controller('users')
 export class UsersController {
   constructor(
@@ -49,24 +48,32 @@ export class UsersController {
     return this.usersService.remove(+id);
   }
 
-  @Get(':userId/addresses')
-  async findUserAddresses(@Param('userId') userId: string): Promise<Address[]> {
+  @Get(':id/addresses')
+  async findUserAddresses(@Param('id') userId: string): Promise<Address[]> {
     return this.addressService.findUserAddresses(userId);
   }
 
-  @Post(':userId/addresses/create')
+  @Post(':id/addresses/create')
   async createUserAddress(
-    @Param('userId') userId: string,
+    @Param('id') userId: string,
     @Body() address: CreateAddressDto,
   ): Promise<Address> {
     return this.addressService.createUserAddress(userId, address);
   }
 
-  @Patch(':userId/addresses/:addressId/update')
+  @Patch(':id/addresses/:addressId/update')
   async updateUserAddress(
-    @Param('userId') userId: string,
+    @Param('id') userId: string,
     @Body() address: UpdateAddressDto,
   ): Promise<Address> {
     return this.addressService.updateUserAddress(userId, address);
+  }
+
+  @Delete(':id/addresses/:addressId/delete')
+  async deleteUserAddress(
+    @Param('id') userId: string,
+    @Param('addressId') addressId: string,
+  ): Promise<Address> {
+    return this.addressService.deleteUserAddress(userId, address);
   }
 }

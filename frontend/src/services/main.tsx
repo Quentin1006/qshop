@@ -17,6 +17,20 @@ async function getUnauthenticatedSession() {
   return session;
 }
 
+export async function fetchWithAuth(url: string, init?: RequestInit) {
+  const session = await getSession();
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${session?.idToken}`,
+  };
+  const res = await fetch(url, { ...init, headers });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error(`Failed to fetch data | ${res.statusText} | ${res.status}`);
+  }
+  return await res.json();
+}
+
 // Get the authenticated session if exists
 // or the iron session if not
 export async function getClientIdentifier() {
@@ -24,7 +38,6 @@ export async function getClientIdentifier() {
   if (userSession) {
     return userSession;
   }
-  console.log({ userSession });
   return await getUnauthenticatedSession();
 }
 
@@ -45,14 +58,7 @@ export async function getUserAddresses<T>() {
     return [];
   }
   const userId = userSession.user.sub;
-  const res = await fetch(`http://localhost:8088/users/${userId}/addresses`);
-  // Recommendation: handle errors
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json() as Promise<T[]>;
+  return (await fetchWithAuth(`http://localhost:8088/users/${userId}/addresses`)) as Promise<T[]>;
 }
 
 export async function getBasket(basketId?: string): Promise<Basket> {

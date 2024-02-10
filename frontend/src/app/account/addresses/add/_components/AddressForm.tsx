@@ -2,26 +2,25 @@
 
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, useFormState } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { sendForm } from '../_action';
-import { useState } from 'react';
+import { sendForm } from '../../_actions';
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
-  // country: z.string().min(2).max(30),
-  // contactNumber: z.string().regex(/^\+[1-9]\d{1,14}$/),
-  // address: z.string().min(2).max(200),
-  // complement: z.string().min(2).max(200),
-  // city: z.string().min(2).max(50),
-  // zipcode: z.string().min(2).max(20),
-  // main: z.boolean(),
-  // shippingInstructions: z.string().min(2).max(200),
+  country: z.string().min(2).max(30),
+  contactNumber: z.string().regex(/^\+[1-9]\d{1,14}$/),
+  address: z.string().min(2).max(200),
+  complement: z.string().min(2).max(200),
+  city: z.string().min(2).max(50),
+  zipcode: z.string().min(2).max(20),
+  main: z.boolean(),
+  shippingInstructions: z.string().min(2).max(200),
 });
 
 export default function AddressForm() {
@@ -30,14 +29,14 @@ export default function AddressForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
-      // country: '',
-      // contactNumber: '',
-      // address: '',
-      // complement: '',
-      // city: '',
-      // zipcode: '',
-      // main: false,
-      // shippingInstructions: '',
+      country: '',
+      contactNumber: '',
+      address: '',
+      complement: '',
+      city: '',
+      zipcode: '',
+      main: false,
+      shippingInstructions: '',
     },
   });
 
@@ -48,24 +47,21 @@ export default function AddressForm() {
     console.log('onSubmit', values);
     await sendForm(values);
     console.log('submitted');
+    form.reset();
   }
+  const isDisabled = form.formState.isSubmitting;
   return (
     <div className="py-4">
-      <div className="flex-col">
-        <div>isSubmitting: {form.formState.isSubmitting ? 'true' : 'false'}</div>
-
-        <div>isValidating:{form.formState.isValidating ? 'true' : 'false'}</div>
-      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          {/* <FormField
+          <FormField
             control={form.control}
             name="country"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Pays/région</FormLabel>
                 <FormControl>
-                  <Select defaultValue={'france'}>
+                  <Select defaultValue={'france'} disabled={isDisabled}>
                     <SelectTrigger className="rounded-md ">
                       <SelectValue />
                     </SelectTrigger>
@@ -81,7 +77,7 @@ export default function AddressForm() {
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
+          />
 
           <FormField
             control={form.control}
@@ -90,21 +86,21 @@ export default function AddressForm() {
               <FormItem>
                 <FormLabel>Nom complet (prénom et nom de famille)</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled={isDisabled} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          {/* <FormField
+          <FormField
             control={form.control}
             name="contactNumber"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Numéro de téléphone</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled={isDisabled} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -118,7 +114,7 @@ export default function AddressForm() {
               <FormItem>
                 <FormLabel>Adresse</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Adresse" />
+                  <Input {...field} placeholder="Adresse" disabled={isDisabled} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -131,7 +127,11 @@ export default function AddressForm() {
             render={({ field }) => (
               <FormItem className="mt-1">
                 <FormControl>
-                  <Input {...field} placeholder="Apt, suite, unité, nom de l'entreprise (facultatif)" />
+                  <Input
+                    {...field}
+                    disabled={isDisabled}
+                    placeholder="Apt, suite, unité, nom de l'entreprise (facultatif)"
+                  />
                 </FormControl>
               </FormItem>
             )}
@@ -146,7 +146,7 @@ export default function AddressForm() {
                   <FormItem className="m-1">
                     <FormLabel>Code Postal</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} disabled={isDisabled} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -160,7 +160,7 @@ export default function AddressForm() {
                   <FormItem className="m-1">
                     <FormLabel>Ville</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} disabled={isDisabled} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -173,14 +173,14 @@ export default function AddressForm() {
             render={({ field }) => (
               <FormItem className="my-2 flex items-center gap-1">
                 <FormControl>
-                  <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  <Checkbox checked={field.value} onCheckedChange={field.onChange} disabled={isDisabled} />
                 </FormControl>
                 <div className="space-y-0 leading-none" style={{ margin: 0 }}>
                   <FormLabel>Faire de cette adresse mon adresse par défaut</FormLabel>
                 </div>
               </FormItem>
             )}
-          /> */}
+          />
 
           <Button variant="tertiary" type="submit" className="mt-8" disabled={form.formState.isSubmitting}>
             Ajouter une adresse

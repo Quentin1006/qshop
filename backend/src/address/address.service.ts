@@ -73,7 +73,11 @@ export class AddressService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  deleteUserAddress(addressId: number) {
+    return this.prisma.address.delete({
+      where: {
+        id: addressId,
+      },
+    });
   }
 }

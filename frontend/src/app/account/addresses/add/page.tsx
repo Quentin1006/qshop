@@ -19,17 +19,12 @@ async function getFakeAddress() {
 export default async function AddAddressPage() {
   const fakeAddress = await getFakeAddress();
   return (
-    <div className="mx-auto w-full max-w-[980px]">
+    <div className="mx-auto w-full max-w-[880px] p-4">
       <Title>Ajouter une nouvelle adresse</Title>
       <div className="flex items-center gap-1 text-sm">
         <MapPin />
         <BasicLink href="/account/addresses">Ou trouver un lieu de retrait près de chez vous</BasicLink>
       </div>
-
-      <fieldset className="rounded-md border border-slate-300 p-4">
-        <legend className="text-sm">Current value in the db</legend>
-        <div>{fakeAddress.name}</div>
-      </fieldset>
 
       <AddressForm />
     </div>

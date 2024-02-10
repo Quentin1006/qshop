@@ -12,6 +12,7 @@ export type Address = {
   street: string;
   complement?: string;
   main: boolean;
+  name: string;
   shippingInstructions?: string;
   type: Prisma.AddressType;
   contactNumber: string;
