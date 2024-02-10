@@ -31,7 +31,8 @@ export async function middleware(req: NextRequest) {
     unauthSession.id = idSession;
     await unauthSession.save();
   }
-  console.log('in middleware, before setting cookie', { unauthSession });
+  // console.log('in middleware, req.url', req.url);
+  // console.log('in middleware : ', { unauthSession });
   return res;
 }
 

@@ -222,6 +222,11 @@ enum AddressType {
   OTHER
 }
 
+model FakeAddress {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
 model Address {
   id                   Int         @id @default(autoincrement())
   name                 String

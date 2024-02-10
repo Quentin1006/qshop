@@ -3,9 +3,29 @@ import { PrismaService } from '../prisma.service';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { UpdateAddressDto } from './dto/update-address.dto';
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 @Injectable()
 export class AddressService {
   constructor(private prisma: PrismaService) {}
+
+  async createFakeAddress(name: string) {
+    await sleep(5000);
+    return this.prisma.fakeAddress.upsert({
+      where: {
+        id: 5,
+      },
+      create: {
+        name,
+      },
+      update: {
+        name,
+      },
+    });
+  }
+
+  getFakeAddress() {
+    return this.prisma.fakeAddress.findFirst();
+  }
 
   findUserAddresses(userId: string) {
     return this.prisma.address.findMany({
