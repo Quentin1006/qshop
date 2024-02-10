@@ -257,9 +257,17 @@ try {
   const itemAddedToBasket = await prisma.basketItem.create({
     data: {
       quantity: 2,
-      basketId: basket.id,
+      basket: {
+        connect: {
+          refId: quentin.id,
+        },
+      },
       state: 'ACTIVE',
-      productId: product1.id,
+      product: {
+        connect: {
+          id: product1.id,
+        },
+      },
     },
   });
 

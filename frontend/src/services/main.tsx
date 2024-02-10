@@ -39,6 +39,22 @@ export async function getCategories() {
   return res.json();
 }
 
+export async function getUserAddresses<T>() {
+  const userSession = await getSession();
+  if (!userSession?.user?.sub) {
+    return [];
+  }
+  const userId = userSession.user.sub;
+  const res = await fetch(`http://localhost:8088/users/${userId}/addresses`);
+  // Recommendation: handle errors
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json() as Promise<T[]>;
+}
+
 export async function getBasket(basketId?: string): Promise<Basket> {
   if (!basketId) {
     const session = await getClientIdentifier();

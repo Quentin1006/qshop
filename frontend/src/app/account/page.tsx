@@ -13,9 +13,9 @@ export default function Page() {
         />
         <Block
           content="Suivre, retourner ou acheter à nouveau"
-          title="Vos commandes"
-          icon="http://localhost:5555/images/helpers/order._CB659956101_.png"
-          link="/account/orders"
+          title="Adresses"
+          icon="http://localhost:5555/images/helpers/address._CB657833298_.png"
+          link="/account/addresses"
         />
         <Block
           content="Suivre, retourner ou acheter à nouveau retourner ou acheter à nouveau"

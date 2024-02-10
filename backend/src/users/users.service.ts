@@ -1,20 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  createOrUpdate({
-    id,
-    email,
-    createdAt,
-    updatedAt,
-    lastname,
-    firstname,
-  }: CreateUserDto) {
+  createOrUpdate({ id, email, createdAt, updatedAt, lastname, firstname }: CreateUserDto) {
     return this.prisma.user.upsert({
       where: { email },
       update: {
@@ -43,10 +35,6 @@ export class UsersService {
         lastname: true,
       },
     });
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
   }
 
   remove(id: number) {
