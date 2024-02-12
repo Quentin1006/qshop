@@ -9,8 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { toPrice } from '@/helpers/string.helper';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { getBasket, updateBasketItem, deleteBasketItem } from '@/services/main';
-import { useAppContext } from '@/contexts/AppContext';
+import { updateBasketItem, deleteBasketItem } from '../../_actions';
 import { StockDisplay } from '@/components/StockDisplay';
 
 export type BasketItemProps = {
@@ -20,7 +19,6 @@ export type BasketItemProps = {
 
 const BasketItemTile = ({ item, basketId }: BasketItemProps) => {
   const [disabled, setDisabled] = React.useState(false);
-  const { setBasket } = useAppContext();
 
   const handleUpdateBasketItemSelection = async (isActive: boolean) => {
     setDisabled(true);
@@ -30,8 +28,6 @@ const BasketItemTile = ({ item, basketId }: BasketItemProps) => {
     };
     try {
       await updateBasketItem(basketId, body);
-      const newBasket = await getBasket(basketId);
-      setBasket(newBasket);
     } catch (error) {
       console.error('Failed to update basket item', error);
     }
@@ -41,15 +37,11 @@ const BasketItemTile = ({ item, basketId }: BasketItemProps) => {
 
   const handleDeleteItem = async () => {
     setDisabled(true);
-
     try {
       await deleteBasketItem(basketId, item.id);
-      const newBasket = await getBasket(basketId);
-      setBasket(newBasket);
     } catch (error) {
       console.error('Failed to delete basket item', error);
     }
-
     setDisabled(false);
   };
 
@@ -61,8 +53,6 @@ const BasketItemTile = ({ item, basketId }: BasketItemProps) => {
     };
     try {
       await updateBasketItem(basketId, body);
-      const newBasket = await getBasket(basketId);
-      setBasket(newBasket);
     } catch (error) {
       console.error('Failed to update basket item', error);
     }
@@ -78,8 +68,6 @@ const BasketItemTile = ({ item, basketId }: BasketItemProps) => {
     };
     try {
       await updateBasketItem(basketId, body);
-      const newBasket = await getBasket(basketId);
-      setBasket(newBasket);
     } catch (error) {
       console.error('Failed to update basket item', error);
     }

@@ -16,6 +16,7 @@ model User {
   role             Role      @relation(fields: [roleId], references: [id])
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
+  addresses        Address[]
   orders           Order[]
   comments         Comment[]
   productsSearched Product[] @relation("productsSearchedByUser")
@@ -30,7 +31,7 @@ enum RoleName {
 
 model Role {
   id          Int          @id @default(autoincrement())
-  name        String       @unique
+  name        RoleName     @unique
   permissions Permission[]
   User        User[]
 }
@@ -205,26 +206,44 @@ enum ShippingMethod {
 }
 
 model Shipping {
-  id                Int             @id @default(autoincrement())
+  id                Int            @id @default(autoincrement())
   method            ShippingMethod
   transporterId     Int
-  transporter       Transporter     @relation(fields: [transporterId], references: [id])
+  transporter       Transporter    @relation(fields: [transporterId], references: [id])
   deliveryAddressId Int
-  deliveryAddress   DeliveryAddress @relation(fields: [deliveryAddressId], references: [id])
-  order             Order           @relation(fields: [orderId], references: [id])
-  orderId           String          @unique
+  deliveryAddress   Address        @relation(fields: [deliveryAddressId], references: [id])
+  order             Order          @relation(fields: [orderId], references: [id])
+  orderId           String         @unique
 }
 
-model DeliveryAddress {
-  id       Int        @id @default(autoincrement())
-  number   String // can include bis, ter ...
-  street   String
-  city     String
-  zipcode  String
-  country  String
-  orderId  String     @unique
-  order    Order      @relation(fields: [orderId], references: [id])
-  shipping Shipping[]
+enum AddressType {
+  PERSONAL
+  RELAY_SHOP
+  OTHER
+}
+
+model FakeAddress {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model Address {
+  id                   Int         @id @default(autoincrement())
+  name                 String
+  number               String // can include bis, ter ...
+  street               String
+  complement           String?
+  city                 String
+  zipcode              String
+  country              String
+  orders               Order[]
+  shipping             Shipping[]
+  main                 Boolean
+  type                 AddressType
+  contactNumber        String
+  shippingInstructions String?
+  user                 User?       @relation(fields: [userId], references: [id])
+  userId               String?
 }
 
 enum Order_Step {
@@ -242,19 +261,20 @@ enum Order_State {
 }
 
 model Order {
-  id              String           @id @default(uuid())
+  id              String      @id @default(uuid())
   paymentId       String?
-  payment         Payment?         @relation(fields: [paymentId], references: [id])
-  basketId        Int              @unique
-  Basket          Basket?
+  payment         Payment?    @relation(fields: [paymentId], references: [id])
+  basketId        Int         @unique
+  basket          Basket?
   userId          String
-  user            User             @relation(fields: [userId], references: [id])
+  user            User        @relation(fields: [userId], references: [id])
   shipping        Shipping?
   contactEmail    String?
   step            Order_Step
   state           Order_State
-  deliveryAddress DeliveryAddress?
+  deliveryAddress Address?    @relation(fields: [addressId], references: [id])
   ticketSAV       TicketSAV[]
+  addressId       Int?
 }
 
 enum TicketState {

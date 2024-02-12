@@ -1,21 +1,21 @@
 /* eslint-disable @next/next/no-head-element */
+
+import 'swiper/swiper-bundle.css';
 import Providers from './Providers';
 
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer';
 import { BasketPanel } from '@/components/BasketPanel';
 import { SubHeader } from '@/components/SubHeader';
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui/toaster';
 
-import { getBasket, getCategories, getClientIdentifier } from '@/services/main';
+import { getBasket, getCategories, getAuthenticatedSession } from '@/services/main';
 
 import '@/styles/globals.css';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const session = await getClientIdentifier();
-  console.log('in rootLayout', { session });
+  const session = await getAuthenticatedSession();
   const basket = await getBasket();
-  console.log('in rootLayout', { basket });
   const categories = await getCategories();
   return (
     <html>

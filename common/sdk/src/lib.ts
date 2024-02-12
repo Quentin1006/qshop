@@ -5,11 +5,17 @@ export type Category = {
   name: string;
 };
 
-export type ShippingAddress = {
+export type Address = {
   id: number;
-  zipCode: number;
+  zipcode: string;
   city: string;
   street: string;
+  complement?: string;
+  main: boolean;
+  name: string;
+  shippingInstructions?: string;
+  type: Prisma.AddressType;
+  contactNumber: string;
   country: string;
   number: string;
 };

@@ -1,5 +1,5 @@
 import { MapPin } from 'lucide-react';
-import { type ShippingAddress, type User } from 'qshop-sdk';
+import { type Address, type User } from 'qshop-sdk';
 import { navigationMenuTriggerStyle } from '../ui/navigation-menu';
 import {
   Dialog,
@@ -14,12 +14,12 @@ import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
 
 export type ShippingAddressTabProps = {
-  shippingAddress?: Pick<ShippingAddress, 'zipCode' | 'city'>;
+  shippingAddress?: Pick<Address, 'zipcode' | 'city'>;
   client?: Pick<User, 'lastname'>;
 };
 
 function Tab({ shippingAddress, client }: ShippingAddressTabProps) {
-  const isValidAddress = shippingAddress?.city && shippingAddress?.zipCode;
+  const isValidAddress = shippingAddress?.city && shippingAddress?.zipcode;
   const isValidClient = client?.lastname;
 
   return (
@@ -30,7 +30,7 @@ function Tab({ shippingAddress, client }: ShippingAddressTabProps) {
           {isValidClient ? `Livraison à ${client.lastname}` : 'Aucun lieu de livraison'}
         </div>
         <div>
-          {isValidAddress ? `${shippingAddress.city} ${shippingAddress.zipCode}` : "Mettre à jour l'emplacement"}
+          {isValidAddress ? `${shippingAddress.city} ${shippingAddress.zipcode}` : "Mettre à jour l'emplacement"}
         </div>
       </div>
     </div>

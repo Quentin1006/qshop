@@ -11,7 +11,7 @@ export type BlockProps = {
 
 const Block: React.FC<BlockProps> = ({ icon, title, content, link }) => {
   return (
-    <Link href={link} className="rounded-lg border border-slate-300 p-2 hover:bg-slate-100">
+    <Link href={link} className="rounded-lg border border-slate-300 p-4 hover:bg-slate-100">
       <div className="flex gap-4">
         <div className="flex flex-shrink-0 items-center justify-center ">
           <Image src={icon} alt={title} width={60} height={60} />
