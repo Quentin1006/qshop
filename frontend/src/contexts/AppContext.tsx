@@ -22,7 +22,12 @@ export type AppProviderProps = {
 
 export const AppProvider = ({ children, initialBasket }: { children: JSX.Element } & AppProviderProps) => {
   console.log({ initialBasket });
-  const [basket, setBasket] = useState(initialBasket);
+  const [basket, _setBasket] = useState(initialBasket);
+
+  const setBasket = (newBasket: Basket) => {
+    console.log('setting nex basket to', newBasket);
+    _setBasket(newBasket);
+  };
 
   return <AppContext.Provider value={{ basket, setBasket }}>{children}</AppContext.Provider>;
 };

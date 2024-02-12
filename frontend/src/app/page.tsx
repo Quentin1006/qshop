@@ -2,8 +2,6 @@ import { ProductsCarousel } from '@/components/ProductsCarousel';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
-export const dynamic = 'force-dynamic';
-
 const CustomCard = ({ size, className }: any) => {
   return (
     <Card className={cn(className, 'h-full')}>

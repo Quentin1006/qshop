@@ -3,8 +3,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 
-// Import Swiper styles
-import 'swiper/swiper-bundle.min.css';
 import Image from 'next/image';
 
 export default function () {
@@ -17,7 +15,7 @@ export default function () {
         modules={[Navigation]}
         slidesPerView={1}
         onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSwiper={(swiper: any) => console.log(swiper)}
       >
         {['carousel-1', 'carousel-2', 'carousel-3', 'carousel-4'].map((imgName) => (
           <SwiperSlide key={imgName}>

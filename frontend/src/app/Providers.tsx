@@ -10,7 +10,6 @@ export type ProviderProps = {
 };
 
 export default function Providers({ children, initialAppContext }: ProviderProps) {
-  console.log({ initialAppContext });
   return (
     <AppProvider {...initialAppContext}>
       <UserProvider>{children}</UserProvider>

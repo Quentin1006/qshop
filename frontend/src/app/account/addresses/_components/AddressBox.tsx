@@ -1,7 +1,8 @@
-import { BasicLink } from '@/components/ui/basic-link';
-import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 import { upperFirst } from '@/helpers/string.helper';
 import { Plus } from 'lucide-react';
+import AddressBoxActionButtons from './AddressBoxActionButtons';
+
 import { type Address } from 'qshop-sdk';
 
 export type AddressBoxProps = {
@@ -32,13 +33,11 @@ export function AddressBox({ address }: AddressBoxProps) {
           </div>
           <div>{upperFirst(address.country)}</div>
           <div>Numéro de téléphone: {address.contactNumber}</div>
-          <BasicLink href="#">Ajouter des instructions de livraison</BasicLink>
+          <Button variant="link" size="link">
+            Ajouter des instructions de livraison
+          </Button>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2">
-          <BasicLink href="#">Modifier</BasicLink>
-          <Separator orientation="vertical" className="h-4 border-slate-600" />
-          <BasicLink href="#">Effacer</BasicLink>
-        </div>
+        <AddressBoxActionButtons addressId={address.id} />
       </div>
     </div>
   );

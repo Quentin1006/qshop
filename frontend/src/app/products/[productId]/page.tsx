@@ -7,12 +7,11 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/h
 import { Button } from '@/components/ui/button';
 import { Dot, MessageSquareText } from 'lucide-react';
 import AddToBasket from './AddToBasket';
+import { getBasket } from '@/services/main';
 
 export type ProductProps = {
   params: { productId: string };
 };
-
-export const dynamic = 'force-dynamic';
 
 async function getProductDetails(productId: string): Promise<ProductDetails> {
   console.log(`http://localhost:8088/products/${productId}/details`);
@@ -27,7 +26,7 @@ async function getProductDetails(productId: string): Promise<ProductDetails> {
 }
 
 export default async function ({ params }: ProductProps) {
-  const pDetails = await getProductDetails(params.productId);
+  const [pDetails, basket] = await Promise.all([getProductDetails(params.productId), getBasket()]);
   return (
     <>
       <div className="banner h-16 w-full"></div>
@@ -109,6 +108,7 @@ export default async function ({ params }: ProductProps) {
             priceWithCurrency={toPrice(pDetails.price.current, '€')}
             inStock={pDetails.sku}
             productId={pDetails.id}
+            basketId={basket.refId}
           />
         </div>
       </div>

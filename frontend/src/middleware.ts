@@ -10,13 +10,12 @@ export async function middleware(req: NextRequest) {
   }
 
   const idSession = `s-${v4()}`;
-
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set('x-id-session', idSession);
 
   const res = NextResponse.next({
     request: {
-      // New request headers
+      // Update request headers
       headers: requestHeaders,
     },
   });
@@ -31,7 +30,7 @@ export async function middleware(req: NextRequest) {
     unauthSession.id = idSession;
     await unauthSession.save();
   }
-  // console.log('in middleware, req.url', req.url);
+  console.log('in middleware, req.url', req.url);
   // console.log('in middleware : ', { unauthSession });
   return res;
 }

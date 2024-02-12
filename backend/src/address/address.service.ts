@@ -35,6 +35,14 @@ export class AddressService {
     });
   }
 
+  getAddress(addressId: number) {
+    return this.prisma.address.findUnique({
+      where: {
+        id: addressId,
+      },
+    });
+  }
+
   createUserAddress(userId: string, address: CreateAddressDto) {
     return this.prisma.address.create({
       data: {
@@ -56,6 +64,7 @@ export class AddressService {
       },
       data: {
         city: address.city,
+        name: address.name,
         complement: address.complement,
         contactNumber: address.contactNumber,
         country: address.country,
@@ -73,10 +82,11 @@ export class AddressService {
     });
   }
 
-  deleteUserAddress(addressId: number) {
+  deleteUserAddress(userId: string, addressId: number) {
     return this.prisma.address.delete({
       where: {
         id: addressId,
+        userId,
       },
     });
   }

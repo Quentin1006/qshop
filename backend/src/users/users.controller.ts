@@ -52,28 +52,4 @@ export class UsersController {
   async findUserAddresses(@Param('id') userId: string): Promise<Address[]> {
     return this.addressService.findUserAddresses(userId);
   }
-
-  @Post(':id/addresses/create')
-  async createUserAddress(
-    @Param('id') userId: string,
-    @Body() address: CreateAddressDto,
-  ): Promise<Address> {
-    return this.addressService.createUserAddress(userId, address);
-  }
-
-  @Patch(':id/addresses/:addressId/update')
-  async updateUserAddress(
-    @Param('id') userId: string,
-    @Body() address: UpdateAddressDto,
-  ): Promise<Address> {
-    return this.addressService.updateUserAddress(userId, address);
-  }
-
-  @Delete(':id/addresses/:addressId/delete')
-  async deleteUserAddress(
-    @Param('id') userId: string,
-    @Param('addressId') addressId: string,
-  ): Promise<Address> {
-    return this.addressService.deleteUserAddress(userId, address);
-  }
 }

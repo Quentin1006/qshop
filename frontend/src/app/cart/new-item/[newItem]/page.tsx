@@ -9,8 +9,6 @@ export type ProductProps = {
   params: { newItem: string };
 };
 
-export const dynamic = 'force-dynamic';
-
 async function getCartItem(itemId: string): Promise<Product> {
   const res = await fetch(`http://localhost:8088/products/${itemId}`);
   // Recommendation: handle errors

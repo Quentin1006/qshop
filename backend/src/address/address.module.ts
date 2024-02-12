@@ -5,10 +5,17 @@ import { PrismaService } from '../prisma.service';
 import { AuthzModule } from 'src/authz/authz.module';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { UpdateAddressDto } from './dto/update-address.dto';
+import { AddressAuthorizationGuard } from './address.guard';
 
 @Module({
   controllers: [AddressController],
-  providers: [AddressService, PrismaService, UpdateAddressDto, CreateAddressDto],
+  providers: [
+    AddressService,
+    PrismaService,
+    AddressAuthorizationGuard,
+    UpdateAddressDto,
+    CreateAddressDto,
+  ],
   imports: [AuthzModule],
   exports: [AddressService, UpdateAddressDto, CreateAddressDto],
 })
