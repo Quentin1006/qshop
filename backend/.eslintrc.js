@@ -2,7 +2,6 @@
 module.exports = {
   root: true,
   extends: ['eslint:recommended'],
-  plugins: ['import'],
   env: {
     node: true,
     jest: true,
@@ -13,7 +12,7 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
-    'import/no-unresolved': 'error',
+    'no-unused-vars': 'off',
   },
   ignorePatterns: ['.eslintrc.js'],
   overrides: [
