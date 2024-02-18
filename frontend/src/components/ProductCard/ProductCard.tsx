@@ -15,15 +15,13 @@ export type ProductCardProps = {
 export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="border border-gray-200">
-      <div className="card-image relative flex justify-center py-6">
+      <div className="card-image relative flex h-[220px] justify-center py-6">
         <div className="overlay absolute top-0 bottom-0 left-0 right-0 bg-black" style={{ opacity: 0.03 }}></div>
-        <Image alt={product.name} src={product.link} width={350} height={700} />
+        <Image alt={product.name} src={product.link} fill className="object-cover" />
       </div>
       <div className="card-text p-3">
         <BasicLink href={`/products/${product.id}`} className="text-black">
-          <div className="overflow-hidden overflow-ellipsis whitespace-normal line-clamp-4">
-            {product.name} | {product.description}
-          </div>
+          <div className="overflow-hidden overflow-ellipsis whitespace-normal line-clamp-4">{product.name}</div>
         </BasicLink>
         <div className="rating-wrapper flex items-center">
           <ProductEvaluation productId={product.id} votes={product.rate.votes} rate={product.rate.value} />

@@ -26,13 +26,17 @@ export async function getUnauthenticatedSession() {
 export async function getAuthenticatedSession() {
   const session = await getAuth0Session();
   if (!session?.idToken) {
-    throw new Error('Missing idToken');
+    return { error: new Error('Missing idToken') };
   }
-  return session;
+  return { session };
 }
 
 export async function fetchWithAuth(url: string, init?: RequestInit) {
-  const session = await getAuthenticatedSession();
+  const { error, session } = await getAuthenticatedSession();
+
+  if (error) {
+    throw new Error('Failed to fetch data', error);
+  }
 
   const headers = new Headers({
     'Content-Type': 'application/json',
@@ -55,9 +59,9 @@ export async function fetchWithAuth(url: string, init?: RequestInit) {
 // Get the authenticated session if exists
 // or the iron session if not
 export async function getClientIdentifier() {
-  const userSession = await getAuthenticatedSession();
-  if (userSession) {
-    return userSession.user.sub;
+  const { session } = await getAuthenticatedSession();
+  if (session) {
+    return session.user.sub;
   }
   return (await getUnauthenticatedSession()).id;
 }

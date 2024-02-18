@@ -34,7 +34,7 @@ export default async function ({ params }: ProductProps) {
         <div className="col-span-3 row-span-1">
           <Box>
             <div>
-              <Image src={item.link} alt={item.description} width={150} height={150} />
+              <Image src={item.link} alt={item.name} width={150} height={150} />
             </div>
             <div className="flex items-center gap-2">
               <BadgeCheck className="text-green-700" />

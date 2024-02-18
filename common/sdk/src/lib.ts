@@ -47,7 +47,7 @@ export type Product = {
   price: Price;
   dateAdded: Date;
   link: string;
-  description: string;
+  altLinks: string[];
   name: string;
   rate: Rate;
   tags: Tag[];

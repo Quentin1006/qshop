@@ -32,12 +32,10 @@ export default async function ({ params }: ProductProps) {
       <div className="banner h-16 w-full"></div>
       <div className="flex px-2">
         <div className="product-images w-1/3">
-          <Image className="w-full" alt={pDetails.description} src={pDetails.link} width={300} height={500} />
+          <Image className="w-full" alt={pDetails.name} src={pDetails.link} width={300} height={500} />
         </div>
         <div className="product-info w-1/2 px-2">
-          <h1 className="text-2xl">
-            {pDetails.name} | {pDetails.description}
-          </h1>
+          <h1 className="text-2xl">{pDetails.name}</h1>
           <div>
             <BasicLink className="text-sm" href={`/stores/${pDetails.store.id}`}>
               Visiter la boutique {pDetails.store.name}

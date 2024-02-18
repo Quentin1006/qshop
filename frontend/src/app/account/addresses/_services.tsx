@@ -7,11 +7,11 @@ export async function getAddress(addressId: number) {
 }
 
 export async function getUserAddresses<T>() {
-  const userSession = await getAuthenticatedSession();
-  if (!userSession?.user?.sub) {
+  const { session } = await getAuthenticatedSession();
+  if (!session?.user?.sub) {
     return [];
   }
-  const userId = userSession.user.sub;
+  const userId = session.user.sub;
   const res = await fetchWithAuth(`http://localhost:8088/users/${userId}/addresses`);
   return (await res.json()) as Promise<T[]>;
 }
