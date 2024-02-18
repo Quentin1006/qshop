@@ -9,12 +9,13 @@ import { BasketPanel } from '@/components/BasketPanel';
 import { SubHeader } from '@/components/SubHeader';
 import { Toaster } from '@/components/ui/toaster';
 
-import { getBasket, getCategories, getAuthenticatedSession } from '@/services/main';
+import { getBasket, getCategories, getSession } from '@/services/main';
 
 import '@/styles/globals.css';
+import { Session } from '@auth0/nextjs-auth0';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const session = await getAuthenticatedSession();
+  const session = await getSession();
   const basket = await getBasket();
   const categories = await getCategories();
   return (
@@ -32,7 +33,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <div className="page">
             <div className="main">
               <div className="main-content">
-                <Header categories={categories} user={session?.user} cartItemsCount={basket?.items.length} />
+                <Header
+                  categories={categories}
+                  user={(session as Session)?.user}
+                  cartItemsCount={basket?.items.length}
+                />
                 <SubHeader categories={categories} />
                 {children}
               </div>

@@ -101,8 +101,8 @@ model Product {
   price          Decimal
   discount       Int              @default(0)
   link           String
+  altLinks       String[]
   name           String
-  description    String
   sku            Int
   dateAdded      DateTime         @default(now())
   rate           Rate?
@@ -162,13 +162,6 @@ model Store {
   id             Int              @id @default(autoincrement())
   name           String
   productDetails ProductDetails[]
-}
-
-model Description {
-  id    Int    @id @default(autoincrement())
-  type  String
-  label String
-  value String
 }
 
 model Tag {

@@ -32,7 +32,8 @@ export class ProductsService {
         id: true,
         name: true,
         price: true,
-        description: true,
+        link: true,
+        altLinks: true,
         rate: {
           select: {
             value: true,
@@ -54,8 +55,8 @@ export class ProductsService {
       select: {
         id: true,
         name: true,
-        description: true,
         link: true,
+        altLinks: true,
         tags: {
           select: {
             name: true,
@@ -69,7 +70,6 @@ export class ProductsService {
     return Prisma.validator<Prisma.ProductSelect>()({
       id: true,
       name: true,
-      description: true,
       discount: true,
       sku: true,
       tags: {
@@ -80,6 +80,7 @@ export class ProductsService {
       price: true,
       dateAdded: true,
       link: true,
+      altLinks: true,
       rate: {
         select: {
           value: true,
@@ -150,9 +151,9 @@ export class ProductsService {
     ]);
 
     const data: Product[] = dataWithoutType.map(
-      ({ link, description, id, name, dateAdded, rate, sku, tags, price, discount }) => ({
+      ({ link, altLinks, id, name, dateAdded, rate, sku, tags, price, discount }) => ({
         link,
-        description,
+        altLinks,
         id,
         name,
         dateAdded,
@@ -244,6 +245,7 @@ export class ProductsService {
           select: {
             id: true,
             link: true,
+            altLinks: true,
             sku: true,
             dateAdded: true,
             tags: {
@@ -253,7 +255,6 @@ export class ProductsService {
               },
             },
             name: true,
-            description: true,
             price: true,
             rate: {
               select: {

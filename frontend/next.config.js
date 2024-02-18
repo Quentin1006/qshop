@@ -4,11 +4,11 @@ const nextConfig = {
   images: {
     remotePatterns: [{ hostname: 'localhost' }],
   },
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
+  // logging: {
+  //   fetches: {
+  //     fullUrl: true,
+  //   },
+  // },
   webpack: (config, { dev, isServer }) => {
     if (dev || isServer) {
       config.devtool = 'source-map';
